@@ -18,9 +18,18 @@ const episodes = podcastData.contents;
 
 <BaseLayout title="ハニヤス合同会社 | 人創りで豊かな未来を">
   <!-- ヒーロー -->
-  <section class="relative overflow-hidden bg-gradient-to-br from-cream-50 via-cream-100 to-soil-100 py-24 md:py-36">
-    <div class="container-content text-center">
-      <p class="text-sm font-medium tracking-[0.3em] text-soil-500 uppercase mb-4">人創りで、豊かな未来を</p>
+  <section class="relative overflow-hidden bg-gradient-to-br from-cream-50 via-cream-100 to-soil-100 py-20 md:py-28">
+    <!-- 背景装飾：大きな円 -->
+    <div class="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-terracotta-100/40 blur-3xl pointer-events-none" aria-hidden="true"></div>
+    <div class="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-green-100/50 blur-3xl pointer-events-none" aria-hidden="true"></div>
+    <!-- 左のアクセントライン -->
+    <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-terracotta-300 via-soil-400 to-transparent" aria-hidden="true"></div>
+
+    <div class="container-content text-center relative">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/70 border border-soil-200 mb-6">
+        <span class="w-1.5 h-1.5 rounded-full bg-terracotta-400"></span>
+        <p class="text-xs font-medium tracking-[0.2em] text-soil-600 uppercase">人創りで、豊かな未来を</p>
+      </div>
       <h1 class="font-serif text-4xl md:text-6xl font-bold text-soil-800 leading-tight mb-6">
         未来のタネを、<br class="sm:hidden" />今ここに
       </h1>
@@ -31,26 +40,30 @@ const episodes = podcastData.contents;
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <a
           href="/services"
-          class="px-6 py-3 rounded-md bg-terracotta-500 text-white font-medium hover:bg-terracotta-600 transition-colors"
+          class="px-7 py-3.5 rounded-lg bg-terracotta-500 text-white font-medium hover:bg-terracotta-600 transition-colors shadow-md hover:shadow-lg"
         >
           サービスを見る
         </a>
         <a
           href="/contact"
-          class="px-6 py-3 rounded-md border border-soil-400 text-soil-700 font-medium hover:bg-soil-100 transition-colors"
+          class="px-7 py-3.5 rounded-lg border-2 border-soil-400 text-soil-700 font-medium hover:bg-soil-100 transition-colors"
         >
           研修を申し込む
         </a>
       </div>
     </div>
-    <!-- 装飾 -->
-    <div class="absolute -bottom-1 left-0 w-full h-16 bg-cream-50" style="clip-path: ellipse(55% 100% at 50% 100%);" aria-hidden="true"></div>
+    <!-- 下部の波 -->
+    <div class="absolute -bottom-1 left-0 w-full h-12 bg-cream-50" style="clip-path: ellipse(55% 100% at 50% 100%);" aria-hidden="true"></div>
   </section>
 
   <!-- ミッション -->
   <section class="section-padding bg-cream-50">
     <div class="container-content text-center max-w-2xl mx-auto">
-      <p class="text-xs font-medium tracking-[0.3em] uppercase text-soil-400 mb-3">Mission</p>
+      <div class="flex items-center justify-center gap-3 mb-4">
+        <div class="h-px w-12 bg-terracotta-300"></div>
+        <p class="text-xs font-medium tracking-[0.3em] uppercase text-soil-400">Mission</p>
+        <div class="h-px w-12 bg-terracotta-300"></div>
+      </div>
       <h2 class="font-serif text-2xl md:text-3xl font-bold text-soil-800 mb-6">
         「人創り」が、すべての原点
       </h2>
@@ -70,7 +83,11 @@ const episodes = podcastData.contents;
     <section class="section-padding bg-soil-50">
       <div class="container-content">
         <div class="text-center mb-10">
-          <p class="text-xs font-medium tracking-[0.3em] uppercase text-soil-400 mb-2">Services</p>
+          <div class="flex items-center justify-center gap-3 mb-3">
+            <div class="h-px w-10 bg-soil-300"></div>
+            <p class="text-xs font-medium tracking-[0.3em] uppercase text-soil-400">Services</p>
+            <div class="h-px w-10 bg-soil-300"></div>
+          </div>
           <h2 class="font-serif text-2xl md:text-3xl font-bold text-soil-800">サービス</h2>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -90,7 +107,11 @@ const episodes = podcastData.contents;
     <section class="section-padding bg-cream-50">
       <div class="container-content">
         <div class="text-center mb-10">
-          <p class="text-xs font-medium tracking-[0.3em] uppercase text-soil-400 mb-2">Blog</p>
+          <div class="flex items-center justify-center gap-3 mb-3">
+            <div class="h-px w-10 bg-soil-300"></div>
+            <p class="text-xs font-medium tracking-[0.3em] uppercase text-soil-400">Blog</p>
+            <div class="h-px w-10 bg-soil-300"></div>
+          </div>
           <h2 class="font-serif text-2xl md:text-3xl font-bold text-soil-800">最新ブログ</h2>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -110,7 +131,11 @@ const episodes = podcastData.contents;
     <section class="section-padding bg-soil-50">
       <div class="container-content">
         <div class="text-center mb-10">
-          <p class="text-xs font-medium tracking-[0.3em] uppercase text-soil-400 mb-2">Podcast</p>
+          <div class="flex items-center justify-center gap-3 mb-3">
+            <div class="h-px w-10 bg-soil-300"></div>
+            <p class="text-xs font-medium tracking-[0.3em] uppercase text-soil-400">Podcast</p>
+            <div class="h-px w-10 bg-soil-300"></div>
+          </div>
           <h2 class="font-serif text-2xl md:text-3xl font-bold text-soil-800">ポッドキャスト</h2>
         </div>
         <div class="flex flex-col gap-4 max-w-2xl mx-auto">

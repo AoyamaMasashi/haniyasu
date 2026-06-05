@@ -55,7 +55,7 @@
   --font-sans: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
 
   /* ── スペーシング / サイズ ── */
-  --spacing-section: 4rem;
+  --spacing-section: 3rem;
   --max-w-content: 72rem;
   --max-w-prose: 42rem;
 }
