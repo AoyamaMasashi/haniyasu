@@ -1,0 +1,81 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ContactForm from '@/components/ContactForm.astro';
+---
+
+<BaseLayout
+  title="お問い合わせ・研修申込 | ハニヤス合同会社"
+  description="AI研修「ククルビット」をはじめ、各種研修・経営支援のお問い合わせはこちらから。"
+>
+  <!-- ページヘッダー -->
+  <section class="py-16 bg-gradient-to-b from-cream-100 to-cream-50">
+    <div class="container-content text-center">
+      <p class="text-xs font-medium tracking-[0.3em] uppercase text-soil-400 mb-3">Contact</p>
+      <h1 class="font-serif text-3xl md:text-4xl font-bold text-soil-800">お問い合わせ・研修申込</h1>
+      <p class="mt-4 text-soil-600 max-w-xl mx-auto leading-relaxed">
+        研修や経営支援にご興味をお持ちでしたら、まずはお気軽にお問い合わせください。<br />
+        内容を確認のうえ、担当者より3営業日以内にご連絡いたします。
+      </p>
+    </div>
+  </section>
+
+  <section class="section-padding bg-cream-50">
+    <div class="container-content">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start max-w-5xl mx-auto">
+
+        <!-- サイドバー: サービス案内 -->
+        <aside class="lg:col-span-1 space-y-6">
+          <div class="bg-white rounded-xl p-6 border border-soil-100 shadow-sm">
+            <h2 class="font-serif text-lg font-bold text-soil-800 mb-4">ご相談いただけるサービス</h2>
+            <ul class="space-y-4 text-sm text-soil-600">
+              <li class="flex gap-3">
+                <span class="mt-0.5 shrink-0 w-5 h-5 rounded-full bg-terracotta-100 flex items-center justify-center">
+                  <span class="w-2 h-2 rounded-full bg-terracotta-500"></span>
+                </span>
+                <div>
+                  <p class="font-medium text-soil-800">AI研修「ククルビット」</p>
+                  <p class="text-soil-500 mt-0.5">生成AIの実務活用を身につける実践型研修</p>
+                </div>
+              </li>
+              <li class="flex gap-3">
+                <span class="mt-0.5 shrink-0 w-5 h-5 rounded-full bg-green-100 flex items-center justify-center">
+                  <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                </span>
+                <div>
+                  <p class="font-medium text-soil-800">サービス・商品企画支援</p>
+                  <p class="text-soil-500 mt-0.5">新規事業・商品開発のアイデア創出から事業化まで</p>
+                </div>
+              </li>
+              <li class="flex gap-3">
+                <span class="mt-0.5 shrink-0 w-5 h-5 rounded-full bg-soil-100 flex items-center justify-center">
+                  <span class="w-2 h-2 rounded-full bg-soil-500"></span>
+                </span>
+                <div>
+                  <p class="font-medium text-soil-800">その他 / ご相談</p>
+                  <p class="text-soil-500 mt-0.5">まずは内容をお聞かせください</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-soil-50 rounded-xl p-6 border border-soil-200 text-sm text-soil-600 leading-relaxed">
+            <h3 class="font-serif font-bold text-soil-800 mb-2">メールでのお問い合わせ</h3>
+            <p>
+              <a href="mailto:info@haniyasu.com" class="text-terracotta-500 hover:underline font-medium">
+                info@haniyasu.com
+              </a>
+            </p>
+            <p class="mt-2 text-soil-500">フォームが使えない場合はメールでもどうぞ。</p>
+          </div>
+        </aside>
+
+        <!-- メインフォーム -->
+        <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-soil-100 p-8 md:p-10">
+          <h2 class="font-serif text-xl font-bold text-soil-800 mb-6">お申し込みフォーム</h2>
+          <ContactForm />
+        </div>
+
+      </div>
+    </div>
+  </section>
+</BaseLayout>

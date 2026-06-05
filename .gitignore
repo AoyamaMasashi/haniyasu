@@ -1,0 +1,31 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+.output/
+.cache/
+
+# Astro
+.astro/
+
+# environment
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Cloudflare
+.wrangler/

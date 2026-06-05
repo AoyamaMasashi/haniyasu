@@ -1,0 +1,58 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-soil-800 text-cream-100 mt-auto">
+  <div class="container-content py-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+      <!-- ブランド -->
+      <div>
+        <p class="font-serif text-xl font-semibold text-cream-200 mb-3">ハニヤス合同会社</p>
+        <p class="text-sm text-soil-300 leading-relaxed">
+          人と組織の豊かな未来をつくる。<br />
+          教育支援・経営支援を通じて、<br />
+          未来のタネをまきます。
+        </p>
+      </div>
+
+      <!-- ナビゲーション -->
+      <nav aria-label="フッターナビゲーション">
+        <p class="text-xs font-medium uppercase tracking-widest text-soil-400 mb-4">サイトマップ</p>
+        <ul class="space-y-2 text-sm" role="list">
+          <li><a href="/about" class="text-soil-300 hover:text-cream-200 transition-colors">私たちについて</a></li>
+          <li><a href="/services" class="text-soil-300 hover:text-cream-200 transition-colors">サービス</a></li>
+          <li><a href="/blog" class="text-soil-300 hover:text-cream-200 transition-colors">ブログ</a></li>
+          <li><a href="/podcast" class="text-soil-300 hover:text-cream-200 transition-colors">ポッドキャスト</a></li>
+          <li><a href="/members" class="text-soil-300 hover:text-cream-200 transition-colors">メンバー</a></li>
+          <li><a href="/contact" class="text-soil-300 hover:text-cream-200 transition-colors">お問い合わせ・研修申込</a></li>
+        </ul>
+      </nav>
+
+      <!-- コンタクト -->
+      <div>
+        <p class="text-xs font-medium uppercase tracking-widest text-soil-400 mb-4">コンタクト</p>
+        <address class="not-italic text-sm text-soil-300 leading-relaxed space-y-1">
+          <p>〒（住所は後ほど追記）</p>
+          <p>
+            <a href="mailto:info@haniyasu.com" class="hover:text-cream-200 transition-colors">
+              info@haniyasu.com
+            </a>
+          </p>
+        </address>
+        <a
+          href="/contact"
+          class="inline-block mt-4 px-4 py-2 text-sm font-medium rounded-md border border-terracotta-400 text-terracotta-300 hover:bg-terracotta-500 hover:text-white transition-colors"
+        >
+          研修を申し込む
+        </a>
+      </div>
+    </div>
+
+    <div class="mt-10 pt-6 border-t border-soil-700 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-soil-500">
+      <p>&copy; {year} ハニヤス合同会社. All rights reserved.</p>
+      <div class="flex gap-4">
+        <a href="/rss.xml" class="hover:text-soil-300 transition-colors">RSS</a>
+      </div>
+    </div>
+  </div>
+</footer>

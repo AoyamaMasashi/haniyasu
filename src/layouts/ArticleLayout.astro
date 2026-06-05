@@ -1,0 +1,84 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import type { MicroCMSImage } from 'microcms-js-sdk';
+
+interface Props {
+  title: string;
+  description?: string;
+  publishedAt?: string;
+  thumbnail?: MicroCMSImage;
+  image?: string;
+  type?: 'website' | 'article';
+  backHref?: string;
+  backLabel?: string;
+}
+
+const {
+  title,
+  description,
+  publishedAt,
+  thumbnail,
+  image = thumbnail?.url,
+  type = 'article',
+  backHref,
+  backLabel = '一覧に戻る',
+} = Astro.props;
+
+const formattedDate = publishedAt
+  ? new Date(publishedAt).toLocaleDateString('ja-JP', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    })
+  : undefined;
+---
+
+<BaseLayout title={title} description={description} image={image} type={type}>
+  <article class="section-padding">
+    <div class="container-content">
+      <!-- パンくず -->
+      {backHref && (
+        <nav class="mb-8" aria-label="パンくずリスト">
+          <a
+            href={backHref}
+            class="inline-flex items-center gap-1 text-sm text-soil-500 hover:text-terracotta-500 transition-colors"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+            </svg>
+            {backLabel}
+          </a>
+        </nav>
+      )}
+
+      <!-- ヘッダー -->
+      <header class="mb-10 max-w-prose">
+        {formattedDate && (
+          <time datetime={publishedAt} class="text-sm text-soil-400">{formattedDate}</time>
+        )}
+        <h1 class="mt-2 text-2xl md:text-3xl font-serif font-bold text-soil-800 leading-snug">
+          {title}
+        </h1>
+      </header>
+
+      <!-- サムネイル -->
+      {thumbnail && (
+        <div class="mb-10 rounded-xl overflow-hidden aspect-[16/9] max-w-3xl">
+          <img
+            src={thumbnail.url}
+            alt={thumbnail.alt ?? title}
+            width={thumbnail.width ?? 1200}
+            height={thumbnail.height ?? 675}
+            class="w-full h-full object-cover"
+            loading="eager"
+          />
+        </div>
+      )}
+
+      <!-- 本文スロット -->
+      <div class="prose">
+        <slot />
+      </div>
+    </div>
+  </article>
+</BaseLayout>

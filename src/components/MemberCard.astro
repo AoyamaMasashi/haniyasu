@@ -1,0 +1,31 @@
+---
+import type { Member } from '@/lib/types';
+
+interface Props {
+  member: Member;
+}
+
+const { member } = Astro.props;
+---
+
+<article class="bg-white rounded-xl p-6 shadow-sm border border-soil-100 flex flex-col items-center text-center">
+  {member.photo ? (
+    <img
+      src={`${member.photo.url}?w=240&h=240&fit=crop&fm=webp`}
+      alt={member.photo.alt ?? member.name}
+      width="120"
+      height="120"
+      class="w-28 h-28 rounded-full object-cover border-4 border-soil-100 mb-4"
+      loading="lazy"
+    />
+  ) : (
+    <div class="w-28 h-28 rounded-full bg-soil-100 flex items-center justify-center mb-4 border-4 border-soil-200">
+      <span class="text-soil-400 font-serif text-3xl">{member.name.charAt(0)}</span>
+    </div>
+  )}
+  <h2 class="font-serif text-lg font-bold text-soil-800">{member.name}</h2>
+  <p class="text-sm text-soil-500 mt-1 mb-3">{member.role}</p>
+  {member.profile && (
+    <div class="text-sm text-soil-600 leading-relaxed text-left" set:html={member.profile} />
+  )}
+</article>

@@ -1,0 +1,8 @@
+name = "haniyasu"
+compatibility_date = "2024-09-23"
+pages_build_output_dir = "dist"
+
+# ローカル開発時の環境変数（本番は Cloudflare Pages ダッシュボードで設定）
+# [vars]
+# MICROCMS_SERVICE_DOMAIN = "your-domain"
+# MICROCMS_API_KEY = "your-key"

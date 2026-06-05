@@ -1,0 +1,38 @@
+---
+import type { PodcastEpisode } from '@/lib/types';
+
+interface Props {
+  episode: PodcastEpisode;
+}
+
+const { episode } = Astro.props;
+
+const formattedDate = episode.publishedAt
+  ? new Date(episode.publishedAt).toLocaleDateString('ja-JP', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    })
+  : '';
+---
+
+<article class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-soil-100 flex gap-4 p-5">
+  <!-- アイコン -->
+  <div class="shrink-0 w-14 h-14 rounded-lg bg-green-100 flex items-center justify-center">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+    </svg>
+  </div>
+  <!-- テキスト -->
+  <div class="flex-1 min-w-0">
+    {formattedDate && (
+      <time datetime={episode.publishedAt} class="text-xs text-soil-400">{formattedDate}</time>
+    )}
+    <h2 class="font-serif font-semibold text-soil-800 leading-snug mt-1 mb-1 truncate">
+      <a href={`/podcast/${episode.id}`} class="hover:text-terracotta-500 transition-colors">
+        {episode.episodeTitle}
+      </a>
+    </h2>
+    <p class="text-sm text-soil-500 line-clamp-2" set:html={episode.description} />
+  </div>
+</article>

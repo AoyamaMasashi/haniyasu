@@ -1,0 +1,40 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BlogCard from '@/components/BlogCard.astro';
+import Pagination from '@/components/Pagination.astro';
+import { getBlogList } from '@/lib/microcms';
+
+const PER_PAGE = 12;
+const { contents: posts, totalCount } = await getBlogList(1, PER_PAGE);
+const totalPages = Math.ceil(totalCount / PER_PAGE);
+---
+
+<BaseLayout
+  title="ブログ | ハニヤス合同会社"
+  description="ハニヤス合同会社のブログ。人材育成・経営支援・AI活用などのテーマで発信しています。"
+>
+  <!-- ページヘッダー -->
+  <section class="py-16 bg-gradient-to-b from-cream-100 to-cream-50">
+    <div class="container-content text-center">
+      <p class="text-xs font-medium tracking-[0.3em] uppercase text-soil-400 mb-3">Blog</p>
+      <h1 class="font-serif text-3xl md:text-4xl font-bold text-soil-800">ブログ</h1>
+    </div>
+  </section>
+
+  <section class="section-padding bg-cream-50">
+    <div class="container-content">
+      {posts.length > 0 ? (
+        <>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {posts.map((post) => <BlogCard post={post} />)}
+          </div>
+          <Pagination currentPage={1} totalPages={totalPages} basePath="/blog" />
+        </>
+      ) : (
+        <div class="text-center py-20 text-soil-400">
+          <p class="font-serif text-lg">ブログ記事は microCMS に登録すると表示されます。</p>
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,34 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import { getAllBlogIds, getBlogPost } from '@/lib/microcms';
+
+export async function getStaticPaths() {
+  const ids = await getAllBlogIds();
+  return ids.map((id) => ({ params: { slug: id } }));
+}
+
+const { slug } = Astro.params;
+const post = await getBlogPost(slug);
+
+if (!post) return Astro.redirect('/blog');
+---
+
+<ArticleLayout
+  title={`${post.title} | ブログ | ハニヤス合同会社`}
+  description={post.body?.replace(/<[^>]+>/g, '').slice(0, 120)}
+  publishedAt={post.publishedAt}
+  thumbnail={post.thumbnail}
+  type="article"
+  backHref="/blog"
+  backLabel="ブログ一覧に戻る"
+>
+  {post.category && post.category.length > 0 && (
+    <div class="flex flex-wrap gap-1 mb-6 not-prose">
+      {post.category.map((cat) => (
+        <span class="px-2 py-0.5 text-xs bg-soil-100 text-soil-600 rounded-full">{cat}</span>
+      ))}
+    </div>
+  )}
+
+  <Fragment set:html={post.body} />
+</ArticleLayout>

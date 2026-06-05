@@ -1,0 +1,159 @@
+@import "tailwindcss";
+
+@theme {
+  /* ── カラーパレット（土・豊穣・和のニュアンス） ── */
+  --color-soil-50: #faf6f1;
+  --color-soil-100: #f2e9dd;
+  --color-soil-200: #e4d0bb;
+  --color-soil-300: #d0b090;
+  --color-soil-400: #bb8e68;
+  --color-soil-500: #a67350;
+  --color-soil-600: #8a5c3d;
+  --color-soil-700: #6e4830;
+  --color-soil-800: #523624;
+  --color-soil-900: #3b261a;
+
+  --color-green-50: #f2f5f0;
+  --color-green-100: #dfe8db;
+  --color-green-200: #bfd1b7;
+  --color-green-300: #96b28a;
+  --color-green-400: #6e9260;
+  --color-green-500: #4e7244;
+  --color-green-600: #3d5a35;
+  --color-green-700: #2e4428;
+  --color-green-800: #20301c;
+  --color-green-900: #142012;
+
+  --color-cream-50: #fdfaf5;
+  --color-cream-100: #f8f2e4;
+  --color-cream-200: #f0e4c8;
+  --color-cream-300: #e4d0a0;
+  --color-cream-400: #d4b872;
+  --color-cream-500: #c09a4e;
+
+  --color-terracotta-50: #fdf3f0;
+  --color-terracotta-100: #fae3da;
+  --color-terracotta-200: #f5c4b0;
+  --color-terracotta-300: #eda07e;
+  --color-terracotta-400: #e07450;
+  --color-terracotta-500: #c85a35;
+  --color-terracotta-600: #a04428;
+  --color-terracotta-700: #7a321d;
+
+  /* ── ブランドカラーエイリアス ── */
+  --color-primary: var(--color-soil-700);
+  --color-primary-light: var(--color-soil-500);
+  --color-primary-dark: var(--color-soil-900);
+  --color-accent: var(--color-terracotta-500);
+  --color-accent-light: var(--color-terracotta-300);
+  --color-muted: var(--color-green-600);
+  --color-bg: var(--color-cream-50);
+  --color-surface: var(--color-cream-100);
+
+  /* ── タイポグラフィ ── */
+  --font-serif: "Shippori Mincho", "Georgia", serif;
+  --font-sans: "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+
+  /* ── スペーシング / サイズ ── */
+  --spacing-section: 4rem;
+  --max-w-content: 72rem;
+  --max-w-prose: 42rem;
+}
+
+/* ── ベーススタイル ── */
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    color: var(--color-soil-800);
+    background-color: var(--color-bg);
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+  }
+
+  a {
+    color: inherit;
+    text-decoration-color: var(--color-terracotta-300);
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* microCMS リッチエディタ本文 */
+  .prose {
+    max-width: var(--max-w-prose);
+    line-height: 1.9;
+    letter-spacing: 0.04em;
+  }
+
+  .prose h2 {
+    font-size: 1.5rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--color-soil-200);
+  }
+
+  .prose h3 {
+    font-size: 1.25rem;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .prose p {
+    margin-bottom: 1.25rem;
+  }
+
+  .prose ul, .prose ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .prose li {
+    margin-bottom: 0.5rem;
+  }
+
+  .prose img {
+    border-radius: 0.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .prose blockquote {
+    border-left: 4px solid var(--color-soil-300);
+    padding-left: 1rem;
+    color: var(--color-soil-600);
+    font-style: italic;
+    margin: 1.5rem 0;
+  }
+}
+
+/* ── ユーティリティ ── */
+@layer utilities {
+  .container-content {
+    width: 100%;
+    max-width: var(--max-w-content);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .container-content {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
+  .section-padding {
+    padding-top: var(--spacing-section);
+    padding-bottom: var(--spacing-section);
+  }
+}

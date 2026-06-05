@@ -1,0 +1,55 @@
+---
+import type { BlogPost } from '@/lib/types';
+
+interface Props {
+  post: BlogPost;
+}
+
+const { post } = Astro.props;
+
+const formattedDate = post.publishedAt
+  ? new Date(post.publishedAt).toLocaleDateString('ja-JP', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    })
+  : '';
+---
+
+<article class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-soil-100">
+  <a href={`/blog/${post.id}`} class="block" tabindex="-1" aria-hidden="true">
+    {post.thumbnail ? (
+      <div class="aspect-[16/9] overflow-hidden">
+        <img
+          src={`${post.thumbnail.url}?w=640&fm=webp`}
+          alt={post.thumbnail.alt ?? post.title}
+          width="640"
+          height="360"
+          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          loading="lazy"
+        />
+      </div>
+    ) : (
+      <div class="aspect-[16/9] bg-soil-100 flex items-center justify-center">
+        <span class="text-soil-300 font-serif text-2xl">ハニヤス</span>
+      </div>
+    )}
+  </a>
+  <div class="p-5">
+    {post.category && post.category.length > 0 && (
+      <div class="flex flex-wrap gap-1 mb-2">
+        {post.category.map((cat) => (
+          <span class="px-2 py-0.5 text-xs bg-soil-100 text-soil-600 rounded-full">{cat}</span>
+        ))}
+      </div>
+    )}
+    <h2 class="font-serif font-semibold text-soil-800 leading-snug mb-2">
+      <a href={`/blog/${post.id}`} class="hover:text-terracotta-500 transition-colors">
+        {post.title}
+      </a>
+    </h2>
+    {formattedDate && (
+      <time datetime={post.publishedAt} class="text-xs text-soil-400">{formattedDate}</time>
+    )}
+  </div>
+</article>

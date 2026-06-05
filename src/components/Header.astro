@@ -1,0 +1,117 @@
+---
+const navLinks = [
+  { href: '/about', label: '私たちについて' },
+  { href: '/services', label: 'サービス' },
+  { href: '/blog', label: 'ブログ' },
+  { href: '/podcast', label: 'ポッドキャスト' },
+  { href: '/members', label: 'メンバー' },
+  { href: '/contact', label: 'お問い合わせ' },
+];
+
+const pathname = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-50 bg-cream-50/95 backdrop-blur-sm border-b border-soil-200">
+  <div class="container-content">
+    <nav class="flex items-center justify-between h-16" aria-label="メインナビゲーション">
+      <!-- ロゴ -->
+      <a href="/" class="flex items-center gap-2 group" aria-label="ハニヤス合同会社 トップへ">
+        <span class="text-xl font-serif font-semibold text-soil-700 group-hover:text-soil-500 transition-colors">
+          ハニヤス
+        </span>
+        <span class="text-xs text-soil-500 hidden sm:block tracking-wider">合同会社</span>
+      </a>
+
+      <!-- デスクトップナビ -->
+      <ul class="hidden md:flex items-center gap-6" role="list">
+        {navLinks.map(({ href, label }) => {
+          const isActive = pathname === href || (href !== '/' && pathname.startsWith(href));
+          return (
+            <li>
+              <a
+                href={href}
+                class:list={[
+                  'text-sm font-medium transition-colors hover:text-terracotta-500',
+                  isActive
+                    ? 'text-terracotta-500 border-b-2 border-terracotta-400 pb-0.5'
+                    : 'text-soil-600',
+                ]}
+                aria-current={isActive ? 'page' : undefined}
+              >
+                {label}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+
+      <!-- CTA ボタン（デスクトップ） -->
+      <a
+        href="/contact"
+        class="hidden md:inline-flex items-center px-4 py-2 text-sm font-medium rounded-md bg-terracotta-500 text-white hover:bg-terracotta-600 transition-colors"
+      >
+        研修を申し込む
+      </a>
+
+      <!-- モバイルメニューボタン -->
+      <button
+        id="mobile-menu-btn"
+        class="md:hidden p-2 rounded-md text-soil-700 hover:bg-soil-100"
+        aria-label="メニューを開く"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </nav>
+  </div>
+
+  <!-- モバイルメニュー -->
+  <div
+    id="mobile-menu"
+    class="md:hidden hidden border-t border-soil-200 bg-cream-50"
+    role="navigation"
+    aria-label="モバイルナビゲーション"
+  >
+    <ul class="container-content py-4 flex flex-col gap-1" role="list">
+      {navLinks.map(({ href, label }) => {
+        const isActive = pathname === href || (href !== '/' && pathname.startsWith(href));
+        return (
+          <li>
+            <a
+              href={href}
+              class:list={[
+                'block px-3 py-2 rounded-md text-sm font-medium transition-colors',
+                isActive
+                  ? 'bg-soil-100 text-soil-800'
+                  : 'text-soil-600 hover:bg-soil-50 hover:text-soil-800',
+              ]}
+              aria-current={isActive ? 'page' : undefined}
+            >
+              {label}
+            </a>
+          </li>
+        );
+      })}
+      <li class="pt-2">
+        <a
+          href="/contact"
+          class="block text-center px-4 py-2 text-sm font-medium rounded-md bg-terracotta-500 text-white hover:bg-terracotta-600 transition-colors"
+        >
+          研修を申し込む
+        </a>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  btn?.addEventListener('click', () => {
+    const isOpen = menu?.classList.toggle('hidden') === false;
+    btn.setAttribute('aria-expanded', String(isOpen));
+  });
+</script>

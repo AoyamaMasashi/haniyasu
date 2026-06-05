@@ -1,0 +1,55 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ServiceCard from '@/components/ServiceCard.astro';
+import { getServiceList } from '@/lib/microcms';
+
+const { contents: services } = await getServiceList();
+---
+
+<BaseLayout
+  title="サービス一覧 | ハニヤス合同会社"
+  description="AI研修「ククルビット」をはじめ、ハニヤス合同会社のサービスをご紹介します。"
+>
+  <!-- ページヘッダー -->
+  <section class="py-16 bg-gradient-to-b from-cream-100 to-cream-50">
+    <div class="container-content text-center">
+      <p class="text-xs font-medium tracking-[0.3em] uppercase text-soil-400 mb-3">Services</p>
+      <h1 class="font-serif text-3xl md:text-4xl font-bold text-soil-800">サービス</h1>
+      <p class="mt-4 text-soil-600 max-w-xl mx-auto leading-relaxed">
+        企業の人材育成・経営支援を通じて、組織の豊かな実りをともに育てます。
+      </p>
+    </div>
+  </section>
+
+  <section class="section-padding bg-cream-50">
+    <div class="container-content">
+      {services.length > 0 ? (
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {services.map((service) => <ServiceCard service={service} />)}
+        </div>
+      ) : (
+        <div class="text-center py-20 text-soil-400">
+          <p class="font-serif text-lg">サービス情報は microCMS に登録すると表示されます。</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 bg-soil-50 border-t border-soil-200 text-center">
+    <div class="container-content max-w-lg">
+      <h2 class="font-serif text-2xl font-bold text-soil-800 mb-4">
+        まずはご相談ください
+      </h2>
+      <p class="text-soil-600 leading-relaxed mb-6">
+        貴社の課題に合わせた研修プランをご提案します。<br />お気軽にお問い合わせください。
+      </p>
+      <a
+        href="/contact"
+        class="inline-block px-8 py-3 rounded-md bg-terracotta-500 text-white font-medium hover:bg-terracotta-600 transition-colors"
+      >
+        研修を申し込む・お問い合わせ
+      </a>
+    </div>
+  </section>
+</BaseLayout>

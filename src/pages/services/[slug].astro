@@ -1,0 +1,42 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import { getAllServiceIds, getService } from '@/lib/microcms';
+
+export async function getStaticPaths() {
+  const ids = await getAllServiceIds();
+  return ids.map((id) => ({ params: { slug: id } }));
+}
+
+const { slug } = Astro.params;
+const service = await getService(slug);
+
+if (!service) return Astro.redirect('/services');
+---
+
+<ArticleLayout
+  title={`${service.serviceName} | サービス | ハニヤス合同会社`}
+  description={service.lead}
+  thumbnail={service.image}
+  backHref="/services"
+  backLabel="サービス一覧に戻る"
+>
+  <!-- キャッチコピー -->
+  <p class="text-xl text-soil-600 italic mb-8 not-prose">{service.lead}</p>
+
+  <!-- 本文 -->
+  <Fragment set:html={service.body} />
+
+  <!-- CTA -->
+  <div class="not-prose mt-12 p-8 bg-soil-50 rounded-xl border border-soil-200 text-center">
+    <h3 class="font-serif text-xl font-bold text-soil-800 mb-3">{service.serviceName} のご相談・申し込み</h3>
+    <p class="text-soil-600 mb-6 leading-relaxed">
+      詳細や料金についてはお気軽にお問い合わせください。
+    </p>
+    <a
+      href="/contact"
+      class="inline-block px-8 py-3 rounded-md bg-terracotta-500 text-white font-medium hover:bg-terracotta-600 transition-colors"
+    >
+      研修を申し込む・お問い合わせ
+    </a>
+  </div>
+</ArticleLayout>

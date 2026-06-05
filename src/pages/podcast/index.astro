@@ -1,0 +1,43 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PodcastCard from '@/components/PodcastCard.astro';
+import { getPodcastList } from '@/lib/microcms';
+
+const { contents: episodes } = await getPodcastList(50, 0);
+---
+
+<BaseLayout
+  title="ポッドキャスト | ハニヤス合同会社"
+  description="ハニヤス合同会社のポッドキャスト。人材育成・経営・AI活用などのテーマでお届けします。"
+>
+  <!-- ページヘッダー -->
+  <section class="py-16 bg-gradient-to-b from-cream-100 to-cream-50">
+    <div class="container-content text-center">
+      <p class="text-xs font-medium tracking-[0.3em] uppercase text-soil-400 mb-3">Podcast</p>
+      <h1 class="font-serif text-3xl md:text-4xl font-bold text-soil-800">ポッドキャスト</h1>
+      <p class="mt-4 text-soil-600 max-w-xl mx-auto leading-relaxed">
+        各配信プラットフォームでも聴けます。
+      </p>
+      <!-- プラットフォームリンク（Phase 2 で動的化） -->
+      <div class="flex flex-wrap justify-center gap-3 mt-6">
+        <span class="px-4 py-2 text-sm rounded-full bg-soil-100 text-soil-600">Spotify</span>
+        <span class="px-4 py-2 text-sm rounded-full bg-soil-100 text-soil-600">Apple Podcasts</span>
+        <span class="px-4 py-2 text-sm rounded-full bg-soil-100 text-soil-600">Amazon Music</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-padding bg-cream-50">
+    <div class="container-content max-w-2xl">
+      {episodes.length > 0 ? (
+        <div class="flex flex-col gap-4">
+          {episodes.map((ep) => <PodcastCard episode={ep} />)}
+        </div>
+      ) : (
+        <div class="text-center py-20 text-soil-400">
+          <p class="font-serif text-lg">ポッドキャストは microCMS に登録すると表示されます。</p>
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>

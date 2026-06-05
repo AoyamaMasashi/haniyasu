@@ -1,0 +1,68 @@
+---
+import ArticleLayout from '@/layouts/ArticleLayout.astro';
+import PodcastEmbed from '@/components/PodcastEmbed.astro';
+import BlogCard from '@/components/BlogCard.astro';
+import { getAllPodcastIds, getPodcastEpisode } from '@/lib/microcms';
+
+export async function getStaticPaths() {
+  const ids = await getAllPodcastIds();
+  return ids.map((id) => ({ params: { slug: id } }));
+}
+
+const { slug } = Astro.params;
+const episode = await getPodcastEpisode(slug);
+
+if (!episode) return Astro.redirect('/podcast');
+
+const platformLabels: Record<string, string> = {
+  spotify: 'Spotify',
+  apple: 'Apple Podcasts',
+  amazon: 'Amazon Music',
+  youtube: 'YouTube',
+  other: 'その他',
+};
+---
+
+<ArticleLayout
+  title={`${episode.episodeTitle} | ポッドキャスト | ハニヤス合同会社`}
+  description={episode.description?.replace(/<[^>]+>/g, '').slice(0, 120)}
+  publishedAt={episode.publishedAt}
+  type="article"
+  backHref="/podcast"
+  backLabel="ポッドキャスト一覧に戻る"
+>
+  <!-- 埋め込みプレーヤー -->
+  {episode.embedUrl && (
+    <div class="not-prose mb-8">
+      <PodcastEmbed embedUrl={episode.embedUrl} title={episode.episodeTitle} />
+    </div>
+  )}
+
+  <!-- 各プラットフォームへのリンク -->
+  {episode.platformLinks && episode.platformLinks.length > 0 && (
+    <div class="not-prose mb-8 flex flex-wrap gap-3">
+      {episode.platformLinks.map((link) => (
+        <a
+          href={link.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-soil-300 text-sm text-soil-700 hover:bg-soil-50 transition-colors"
+          aria-label={`${platformLabels[link.platform] ?? link.platform} で聴く`}
+        >
+          {platformLabels[link.platform] ?? link.platform} で聴く ↗
+        </a>
+      ))}
+    </div>
+  )}
+
+  <!-- 概要 -->
+  <Fragment set:html={episode.description} />
+
+  <!-- 関連ブログ記事 -->
+  {episode.relatedBlog && (
+    <div class="not-prose mt-12">
+      <h2 class="font-serif text-xl font-bold text-soil-800 mb-4">このエピソードのまとめ記事</h2>
+      <BlogCard post={episode.relatedBlog} />
+    </div>
+  )}
+</ArticleLayout>

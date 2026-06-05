@@ -1,0 +1,56 @@
+---
+interface Props {
+  currentPage: number;
+  totalPages: number;
+  basePath: string;
+}
+
+const { currentPage, totalPages, basePath } = Astro.props;
+
+function pageUrl(page: number) {
+  if (page === 1) return basePath;
+  return `${basePath}/page/${page}`;
+}
+---
+
+{totalPages > 1 && (
+  <nav class="flex justify-center items-center gap-2 mt-12" aria-label="ページナビゲーション">
+    {currentPage > 1 && (
+      <a
+        href={pageUrl(currentPage - 1)}
+        class="px-3 py-2 rounded-md border border-soil-200 text-sm text-soil-600 hover:bg-soil-50 transition-colors"
+        rel="prev"
+        aria-label="前のページ"
+      >
+        ← 前へ
+      </a>
+    )}
+
+    {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+      <a
+        href={pageUrl(page)}
+        class:list={[
+          'px-3 py-2 rounded-md text-sm font-medium transition-colors',
+          page === currentPage
+            ? 'bg-soil-700 text-white'
+            : 'border border-soil-200 text-soil-600 hover:bg-soil-50',
+        ]}
+        aria-current={page === currentPage ? 'page' : undefined}
+        aria-label={`${page}ページ目`}
+      >
+        {page}
+      </a>
+    ))}
+
+    {currentPage < totalPages && (
+      <a
+        href={pageUrl(currentPage + 1)}
+        class="px-3 py-2 rounded-md border border-soil-200 text-sm text-soil-600 hover:bg-soil-50 transition-colors"
+        rel="next"
+        aria-label="次のページ"
+      >
+        次へ →
+      </a>
+    )}
+  </nav>
+)}
