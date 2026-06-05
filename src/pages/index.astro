@@ -18,11 +18,10 @@ const episodes = podcastData.contents;
 
 <BaseLayout title="ハニヤス合同会社 | 人創りで豊かな未来を">
   <!-- ヒーロー -->
-  <section class="relative overflow-hidden bg-gradient-to-br from-cream-50 via-cream-100 to-soil-100 py-20 md:py-28">
-    <!-- 背景装飾：大きな円 -->
+  <section class="relative overflow-hidden bg-gradient-to-br from-cream-50 via-cream-100 to-soil-100 pt-16 pb-16 md:pt-24 md:pb-20">
+    <!-- 背景装飾 -->
     <div class="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-terracotta-100/40 blur-3xl pointer-events-none" aria-hidden="true"></div>
-    <div class="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-green-100/50 blur-3xl pointer-events-none" aria-hidden="true"></div>
-    <!-- 左のアクセントライン -->
+    <div class="absolute bottom-0 -left-20 w-72 h-72 rounded-full bg-green-100/50 blur-3xl pointer-events-none" aria-hidden="true"></div>
     <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-terracotta-300 via-soil-400 to-transparent" aria-hidden="true"></div>
 
     <div class="container-content text-center relative">
@@ -30,34 +29,26 @@ const episodes = podcastData.contents;
         <span class="w-1.5 h-1.5 rounded-full bg-terracotta-400"></span>
         <p class="text-xs font-medium tracking-[0.2em] text-soil-600 uppercase">人創りで、豊かな未来を</p>
       </div>
-      <h1 class="font-serif text-4xl md:text-6xl font-bold text-soil-800 leading-tight mb-6">
+      <h1 class="font-serif text-4xl md:text-6xl font-bold text-soil-800 leading-tight mb-5">
         未来のタネを、<br class="sm:hidden" />今ここに
       </h1>
-      <p class="max-w-xl mx-auto text-lg text-soil-600 leading-relaxed mb-10">
+      <p class="max-w-xl mx-auto text-base md:text-lg text-soil-600 leading-relaxed mb-8">
         ハニヤス合同会社は、教育支援・経営支援を通じて<br class="hidden sm:block" />
         企業と人が豊かに育つ土壌をつくります。
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a
-          href="/services"
-          class="px-7 py-3.5 rounded-lg bg-terracotta-500 text-white font-medium hover:bg-terracotta-600 transition-colors shadow-md hover:shadow-lg"
-        >
+        <a href="/services" class="px-7 py-3.5 rounded-lg bg-terracotta-500 text-white font-medium hover:bg-terracotta-600 transition-colors shadow-md hover:shadow-lg">
           サービスを見る
         </a>
-        <a
-          href="/contact"
-          class="px-7 py-3.5 rounded-lg border-2 border-soil-400 text-soil-700 font-medium hover:bg-soil-100 transition-colors"
-        >
+        <a href="/contact" class="px-7 py-3.5 rounded-lg border-2 border-soil-400 text-soil-700 font-medium hover:bg-soil-100 transition-colors">
           研修を申し込む
         </a>
       </div>
     </div>
-    <!-- 下部の波 -->
-    <div class="absolute -bottom-1 left-0 w-full h-12 bg-cream-50" style="clip-path: ellipse(55% 100% at 50% 100%);" aria-hidden="true"></div>
   </section>
 
   <!-- ミッション -->
-  <section class="section-padding bg-cream-50">
+  <section class="section-padding bg-white border-y border-soil-100">
     <div class="container-content text-center max-w-2xl mx-auto">
       <div class="flex items-center justify-center gap-3 mb-4">
         <div class="h-px w-12 bg-terracotta-300"></div>
