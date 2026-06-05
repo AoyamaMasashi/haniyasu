@@ -161,8 +161,14 @@ export async function POST(ctx: APIContext): Promise<Response> {
     return json({ ok: false, error: validationError }, 400);
   }
 
+  // Cloudflare Pages ランタイムの環境変数（import.meta.env はビルド時のみ）
+  type CfEnv = Record<string, string | undefined>;
+  const cfEnv: CfEnv =
+    (ctx.locals as { runtime?: { env?: CfEnv } }).runtime?.env ?? {};
+  const getEnv = (key: string) => cfEnv[key] ?? import.meta.env[key as keyof ImportMetaEnv];
+
   // Turnstile 検証（シークレットキーがある場合のみ）
-  const turnstileSecret = import.meta.env.TURNSTILE_SECRET_KEY;
+  const turnstileSecret = getEnv('TURNSTILE_SECRET_KEY');
   if (turnstileSecret) {
     const ip = ctx.request.headers.get('CF-Connecting-IP') ?? '';
     const passed = await verifyTurnstile(data.turnstileToken, turnstileSecret, ip);
@@ -172,15 +178,14 @@ export async function POST(ctx: APIContext): Promise<Response> {
   }
 
   // Resend でメール送信
-  const resendKey = import.meta.env.RESEND_API_KEY;
+  const resendKey = getEnv('RESEND_API_KEY');
   if (!resendKey) {
-    // 開発環境: Resend 未設定の場合はログのみ
-    console.log('[apply] 送信内容:', data);
+    console.log('[apply] RESEND_API_KEY 未設定 - 送信内容:', data);
     return json({ ok: true });
   }
 
   const resend = new Resend(resendKey);
-  const notifyTo = import.meta.env.CONTACT_NOTIFY_TO || 'aoyama.masashi@haniyasu.com';
+  const notifyTo = getEnv('CONTACT_NOTIFY_TO') || 'aoyama.masashi@haniyasu.com';
 
   // 差出人アドレス: ドメイン認証前は Resend のテスト用、本番化後は info@haniyasu.com に変更
   const fromAddress = 'ハニヤス合同会社 <onboarding@resend.dev>';
