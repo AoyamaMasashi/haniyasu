@@ -22,23 +22,33 @@ export async function getPodcastList(limit = PER_PAGE, offset = 0) {
     const slice = mockPodcastEpisodes.slice(offset, offset + limit);
     return { contents: slice, totalCount: mockPodcastEpisodes.length, offset, limit };
   }
-  return client.getList<PodcastEpisode>({
-    endpoint: 'podcast',
-    queries: { limit, offset, orders: '-publishedAt' },
-  });
+  try {
+    return await client.getList<PodcastEpisode>({
+      endpoint: 'podcast',
+      queries: { limit, offset, orders: '-publishedAt' },
+    });
+  } catch {
+    const slice = mockPodcastEpisodes.slice(offset, offset + limit);
+    return { contents: slice, totalCount: mockPodcastEpisodes.length, offset, limit };
+  }
 }
 
 export async function getPodcastEpisode(contentId: string) {
   if (!client) return mockPodcastEpisodes.find((e) => e.id === contentId) ?? null;
-  return client.getListDetail<PodcastEpisode>({
-    endpoint: 'podcast',
-    contentId,
-  });
+  try {
+    return await client.getListDetail<PodcastEpisode>({ endpoint: 'podcast', contentId });
+  } catch {
+    return null;
+  }
 }
 
 export async function getAllPodcastIds() {
   if (!client) return mockPodcastEpisodes.map((e) => e.id);
-  return client.getAllContentIds({ endpoint: 'podcast' });
+  try {
+    return await client.getAllContentIds({ endpoint: 'podcast' });
+  } catch {
+    return mockPodcastEpisodes.map((e) => e.id);
+  }
 }
 
 // ── サービス ──────────────────────────────────────────────
@@ -47,20 +57,32 @@ export async function getServiceList() {
   if (!client) {
     return { contents: mockServices, totalCount: mockServices.length, offset: 0, limit: 100 };
   }
-  return client.getList<Service>({
-    endpoint: 'service',
-    queries: { limit: 100, orders: 'order' },
-  });
+  try {
+    return await client.getList<Service>({
+      endpoint: 'service',
+      queries: { limit: 100, orders: 'order' },
+    });
+  } catch {
+    return { contents: mockServices, totalCount: mockServices.length, offset: 0, limit: 100 };
+  }
 }
 
 export async function getService(contentId: string) {
   if (!client) return mockServices.find((s) => s.id === contentId) ?? null;
-  return client.getListDetail<Service>({ endpoint: 'service', contentId });
+  try {
+    return await client.getListDetail<Service>({ endpoint: 'service', contentId });
+  } catch {
+    return null;
+  }
 }
 
 export async function getAllServiceIds() {
   if (!client) return mockServices.map((s) => s.id);
-  return client.getAllContentIds({ endpoint: 'service' });
+  try {
+    return await client.getAllContentIds({ endpoint: 'service' });
+  } catch {
+    return mockServices.map((s) => s.id);
+  }
 }
 
 // ── メンバー ──────────────────────────────────────────────
@@ -69,15 +91,23 @@ export async function getMemberList() {
   if (!client) {
     return { contents: mockMembers, totalCount: mockMembers.length, offset: 0, limit: 100 };
   }
-  return client.getList<Member>({
-    endpoint: 'member',
-    queries: { limit: 100, orders: 'order' },
-  });
+  try {
+    return await client.getList<Member>({
+      endpoint: 'member',
+      queries: { limit: 100, orders: 'order' },
+    });
+  } catch {
+    return { contents: mockMembers, totalCount: mockMembers.length, offset: 0, limit: 100 };
+  }
 }
 
 // ── About（単一コンテンツ / オブジェクト形式） ────────────
 
 export async function getAbout() {
   if (!client) return mockAbout;
-  return client.getObject<About>({ endpoint: 'about' });
+  try {
+    return await client.getObject<About>({ endpoint: 'about' });
+  } catch {
+    return mockAbout;
+  }
 }
