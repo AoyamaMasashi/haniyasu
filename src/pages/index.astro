@@ -3,16 +3,16 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import ServiceCard from '@/components/ServiceCard.astro';
 import BlogCard from '@/components/BlogCard.astro';
 import PodcastCard from '@/components/PodcastCard.astro';
-import { getServiceList, getBlogList, getPodcastList } from '@/lib/microcms';
+import { getServiceList, getPodcastList } from '@/lib/microcms';
+import { getNoteArticles } from '@/lib/note';
 
-const [servicesData, blogData, podcastData] = await Promise.all([
+const [servicesData, blogPosts, podcastData] = await Promise.all([
   getServiceList(),
-  getBlogList(1, 3),
+  getNoteArticles(3),
   getPodcastList(3, 0),
 ]);
 
 const services = servicesData.contents;
-const blogPosts = blogData.contents;
 const episodes = podcastData.contents;
 ---
 

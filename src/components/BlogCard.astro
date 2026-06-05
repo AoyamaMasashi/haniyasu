@@ -1,8 +1,8 @@
 ---
-import type { BlogPost } from '@/lib/types';
+import type { NoteArticle } from '@/lib/note';
 
 interface Props {
-  post: BlogPost;
+  post: NoteArticle;
 }
 
 const { post } = Astro.props;
@@ -17,12 +17,12 @@ const formattedDate = post.publishedAt
 ---
 
 <article class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-soil-100">
-  <a href={`/blog/${post.id}`} class="block" tabindex="-1" aria-hidden="true">
+  <a href={post.link} target="_blank" rel="noopener noreferrer" class="block" tabindex="-1" aria-hidden="true">
     {post.thumbnail ? (
       <div class="aspect-[16/9] overflow-hidden">
         <img
-          src={`${post.thumbnail.url}?w=640&fm=webp`}
-          alt={post.thumbnail.alt ?? post.title}
+          src={post.thumbnail}
+          alt={post.title}
           width="640"
           height="360"
           class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
@@ -36,20 +36,30 @@ const formattedDate = post.publishedAt
     )}
   </a>
   <div class="p-5">
-    {post.category && post.category.length > 0 && (
-      <div class="flex flex-wrap gap-1 mb-2">
-        {post.category.map((cat) => (
-          <span class="px-2 py-0.5 text-xs bg-soil-100 text-soil-600 rounded-full">{cat}</span>
-        ))}
-      </div>
-    )}
     <h2 class="font-serif font-semibold text-soil-800 leading-snug mb-2">
-      <a href={`/blog/${post.id}`} class="hover:text-terracotta-500 transition-colors">
+      <a
+        href={post.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hover:text-terracotta-500 transition-colors"
+      >
         {post.title}
       </a>
     </h2>
-    {formattedDate && (
-      <time datetime={post.publishedAt} class="text-xs text-soil-400">{formattedDate}</time>
+    {post.description && (
+      <p class="text-sm text-soil-500 line-clamp-2 mb-2">{post.description}</p>
     )}
+    <div class="flex items-center justify-between mt-2">
+      {formattedDate && (
+        <time datetime={post.publishedAt} class="text-xs text-soil-400">{formattedDate}</time>
+      )}
+      <span class="text-xs text-soil-400 flex items-center gap-1">
+        note で読む
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"/>
+          <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"/>
+        </svg>
+      </span>
+    </div>
   </div>
 </article>

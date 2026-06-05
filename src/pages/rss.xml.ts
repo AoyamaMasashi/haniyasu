@@ -1,9 +1,9 @@
 import rss from '@astrojs/rss';
 import type { APIContext } from 'astro';
-import { getBlogList } from '@/lib/microcms';
+import { getNoteArticles } from '@/lib/note';
 
 export async function GET(context: APIContext) {
-  const { contents: posts } = await getBlogList(1, 50);
+  const posts = await getNoteArticles(50);
 
   return rss({
     title: 'ハニヤス合同会社 ブログ',
@@ -12,8 +12,8 @@ export async function GET(context: APIContext) {
     items: posts.map((post) => ({
       title: post.title,
       pubDate: post.publishedAt ? new Date(post.publishedAt) : new Date(),
-      description: post.body?.replace(/<[^>]+>/g, '').slice(0, 200),
-      link: `/blog/${post.id}/`,
+      description: post.description,
+      link: post.link,
     })),
     customData: '<language>ja</language>',
   });

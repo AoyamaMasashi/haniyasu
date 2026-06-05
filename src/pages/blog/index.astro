@@ -1,12 +1,9 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import BlogCard from '@/components/BlogCard.astro';
-import Pagination from '@/components/Pagination.astro';
-import { getBlogList } from '@/lib/microcms';
+import { getNoteArticles, NOTE_PROFILE_URL } from '@/lib/note';
 
-const PER_PAGE = 12;
-const { contents: posts, totalCount } = await getBlogList(1, PER_PAGE);
-const totalPages = Math.ceil(totalCount / PER_PAGE);
+const posts = await getNoteArticles(50);
 ---
 
 <BaseLayout
@@ -18,23 +15,42 @@ const totalPages = Math.ceil(totalCount / PER_PAGE);
     <div class="container-content text-center">
       <p class="text-xs font-medium tracking-[0.3em] uppercase text-soil-400 mb-3">Blog</p>
       <h1 class="font-serif text-3xl md:text-4xl font-bold text-soil-800">ブログ</h1>
+      <p class="mt-4 text-soil-500 text-sm">
+        記事は
+        <a href={NOTE_PROFILE_URL} target="_blank" rel="noopener noreferrer" class="text-terracotta-500 hover:underline">
+          note
+        </a>
+        で公開しています
+      </p>
     </div>
   </section>
 
   <section class="section-padding bg-cream-50">
     <div class="container-content">
       {posts.length > 0 ? (
-        <>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {posts.map((post) => <BlogCard post={post} />)}
-          </div>
-          <Pagination currentPage={1} totalPages={totalPages} basePath="/blog" />
-        </>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {posts.map((post) => <BlogCard post={post} />)}
+        </div>
       ) : (
         <div class="text-center py-20 text-soil-400">
-          <p class="font-serif text-lg">ブログ記事は microCMS に登録すると表示されます。</p>
+          <p class="font-serif text-lg">記事を取得できませんでした。</p>
+          <a href={NOTE_PROFILE_URL} target="_blank" rel="noopener noreferrer" class="mt-4 inline-block text-terracotta-500 hover:underline">
+            note で直接見る →
+          </a>
         </div>
       )}
+
+      <!-- note プロフィールへのリンク -->
+      <div class="text-center mt-10">
+        <a
+          href={NOTE_PROFILE_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 text-sm font-medium text-terracotta-500 hover:text-terracotta-600 border-b border-terracotta-300 hover:border-terracotta-500 transition-colors pb-0.5"
+        >
+          note でもっと読む →
+        </a>
+      </div>
     </div>
   </section>
 </BaseLayout>

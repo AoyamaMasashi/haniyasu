@@ -1,12 +1,5 @@
 import type { MicroCMSImage, MicroCMSListContent, MicroCMSObjectContent } from 'microcms-js-sdk';
 
-export interface BlogPost extends MicroCMSListContent {
-  title: string;
-  body: string;
-  thumbnail?: MicroCMSImage;
-  category?: string[];
-}
-
 export interface PlatformLink {
   fieldId: string;
   platform: 'spotify' | 'apple' | 'amazon' | 'youtube' | 'other';
@@ -18,7 +11,7 @@ export interface PodcastEpisode extends MicroCMSListContent {
   description: string;
   embedUrl?: string;
   platformLinks?: PlatformLink[];
-  relatedBlog?: BlogPost;
+  relatedBlogUrl?: string;
 }
 
 export interface Service extends MicroCMSListContent {

@@ -1,7 +1,6 @@
 ---
 import ArticleLayout from '@/layouts/ArticleLayout.astro';
 import PodcastEmbed from '@/components/PodcastEmbed.astro';
-import BlogCard from '@/components/BlogCard.astro';
 import { getAllPodcastIds, getPodcastEpisode } from '@/lib/microcms';
 
 export async function getStaticPaths() {
@@ -47,7 +46,6 @@ const platformLabels: Record<string, string> = {
           target="_blank"
           rel="noopener noreferrer"
           class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-soil-300 text-sm text-soil-700 hover:bg-soil-50 transition-colors"
-          aria-label={`${platformLabels[link.platform] ?? link.platform} で聴く`}
         >
           {platformLabels[link.platform] ?? link.platform} で聴く ↗
         </a>
@@ -58,11 +56,18 @@ const platformLabels: Record<string, string> = {
   <!-- 概要 -->
   <Fragment set:html={episode.description} />
 
-  <!-- 関連ブログ記事 -->
-  {episode.relatedBlog && (
-    <div class="not-prose mt-12">
-      <h2 class="font-serif text-xl font-bold text-soil-800 mb-4">このエピソードのまとめ記事</h2>
-      <BlogCard post={episode.relatedBlog} />
+  <!-- 関連 note 記事 -->
+  {episode.relatedBlogUrl && (
+    <div class="not-prose mt-12 p-6 bg-soil-50 rounded-xl border border-soil-200">
+      <p class="text-sm font-medium text-soil-600 mb-2">このエピソードのまとめ記事（note）</p>
+      <a
+        href={episode.relatedBlogUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 text-terracotta-500 hover:text-terracotta-600 font-medium transition-colors"
+      >
+        note で読む ↗
+      </a>
     </div>
   )}
 </ArticleLayout>
