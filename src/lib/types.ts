@@ -37,6 +37,12 @@ export interface About extends MicroCMSObjectContent {
   image?: MicroCMSImage;
 }
 
+export interface News extends MicroCMSListContent {
+  title: string;
+  body?: string;
+  category?: string;
+}
+
 export interface SeoProps {
   title: string;
   description?: string;

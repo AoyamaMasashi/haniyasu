@@ -1,4 +1,4 @@
-import type { PodcastEpisode, Service, Member, About } from './types';
+import type { PodcastEpisode, Service, Member, About, News } from './types';
 
 export const mockServices: Service[] = [
   {
@@ -72,6 +72,8 @@ export const mockMembers: Member[] = [
     order: 2,
   },
 ];
+
+export const mockNews: News[] = [];
 
 export const mockAbout: About = {
   createdAt: '2025-01-01T00:00:00.000Z',

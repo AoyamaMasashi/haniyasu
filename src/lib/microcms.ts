@@ -1,10 +1,11 @@
 import { createClient } from 'microcms-js-sdk';
-import type { PodcastEpisode, Service, Member, About } from './types';
+import type { PodcastEpisode, Service, Member, About, News } from './types';
 import {
   mockServices,
   mockPodcastEpisodes,
   mockMembers,
   mockAbout,
+  mockNews,
 } from './mockData';
 
 const serviceDomain = import.meta.env.MICROCMS_SERVICE_DOMAIN;
@@ -98,6 +99,38 @@ export async function getMemberList() {
     });
   } catch {
     return { contents: mockMembers, totalCount: mockMembers.length, offset: 0, limit: 100 };
+  }
+}
+
+// ── お知らせ ──────────────────────────────────────────────
+
+export async function getNewsList(limit = 50) {
+  if (!client) return { contents: mockNews, totalCount: 0 };
+  try {
+    return await client.getList<News>({
+      endpoint: 'news',
+      queries: { limit, orders: '-publishedAt' },
+    });
+  } catch {
+    return { contents: mockNews, totalCount: 0 };
+  }
+}
+
+export async function getNewsItem(contentId: string) {
+  if (!client) return null;
+  try {
+    return await client.getListDetail<News>({ endpoint: 'news', contentId });
+  } catch {
+    return null;
+  }
+}
+
+export async function getAllNewsIds() {
+  if (!client) return mockNews.map((n) => n.id);
+  try {
+    return await client.getAllContentIds({ endpoint: 'news' });
+  } catch {
+    return [];
   }
 }
 

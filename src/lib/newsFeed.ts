@@ -1,4 +1,4 @@
-import { getPodcastList } from './microcms';
+import { getNewsList, getPodcastList } from './microcms';
 import { getNoteArticles } from './note';
 
 export interface FeedItem {
@@ -6,15 +6,26 @@ export interface FeedItem {
   category: string;
   title: string;
   href?: string;
+  newsId?: string;
 }
 
 export async function getNewsFeed(limit = 30): Promise<FeedItem[]> {
-  const [podcastData, blogPosts] = await Promise.all([
+  const [newsData, podcastData, blogPosts] = await Promise.all([
+    getNewsList(50),
     getPodcastList(20),
     getNoteArticles(20),
   ]);
 
   const items: FeedItem[] = [];
+
+  for (const n of newsData.contents) {
+    items.push({
+      date: n.publishedAt,
+      category: n.category ?? 'お知らせ',
+      title: n.title,
+      newsId: n.body ? n.id : undefined,
+    });
+  }
 
   for (const ep of podcastData.contents) {
     items.push({
