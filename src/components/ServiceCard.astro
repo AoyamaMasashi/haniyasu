@@ -8,40 +8,41 @@ interface Props {
 const { service } = Astro.props;
 ---
 
-<article class="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-soil-100 flex flex-col">
-  {service.image ? (
-    <div class="aspect-[3/2] overflow-hidden">
-      <img
-        src={`${service.image.url}?w=640&fm=webp`}
-        alt={service.image.alt ?? service.serviceName}
-        width="640"
-        height="427"
-        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-        loading="lazy"
-      />
-    </div>
-  ) : (
-    <div class="h-2 bg-gradient-to-r from-terracotta-400 to-terracotta-600"></div>
-  )}
-  <div class="p-6 flex flex-col flex-1">
-    <div class="flex items-start gap-4 mb-3">
-      <div class="shrink-0 w-10 h-10 rounded-lg bg-terracotta-50 border border-terracotta-100 flex items-center justify-center mt-0.5">
+<article class="group bg-white rounded-xl shadow-sm border border-soil-100 flex flex-col sm:flex-row gap-5 p-6 hover:shadow-md transition-shadow">
+  <!-- 左: アイコン + タイトル + リード -->
+  <div class="flex items-start gap-4 sm:w-64 shrink-0">
+    {service.image ? (
+      <div class="w-16 h-16 rounded-lg overflow-hidden shrink-0">
+        <img
+          src={`${service.image.url}?w=128&h=128&fit=crop&fm=webp`}
+          alt={service.image.alt ?? service.serviceName}
+          width="64"
+          height="64"
+          class="w-full h-full object-cover"
+          loading="lazy"
+        />
+      </div>
+    ) : (
+      <div class="w-10 h-10 rounded-lg bg-terracotta-50 border border-terracotta-100 flex items-center justify-center shrink-0 mt-0.5">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-terracotta-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
         </svg>
       </div>
-      <div class="flex-1 min-w-0">
-        <h2 class="font-serif text-lg font-bold text-soil-800 leading-snug">
-          {service.serviceName}
-        </h2>
-      </div>
+    )}
+    <div class="min-w-0">
+      <h2 class="font-serif text-base font-bold text-soil-800 leading-snug">{service.serviceName}</h2>
+      <p class="text-sm text-soil-500 mt-1 leading-relaxed sm:hidden">{service.lead}</p>
     </div>
-    <p class="text-sm text-soil-600 leading-relaxed mb-4 flex-1">{service.lead}</p>
-    <div class="mt-auto flex flex-col gap-2">
+  </div>
+
+  <!-- 右: リード（デスクトップ）+ ボタン群 -->
+  <div class="flex-1 flex flex-col justify-between gap-3 sm:border-l sm:border-soil-100 sm:pl-5">
+    <p class="hidden sm:block text-sm text-soil-600 leading-relaxed">{service.lead}</p>
+    <div class="flex flex-wrap items-center gap-2">
       {service.id === 'cucurbit' && (
         <a
           href="/services/cucurbit-sales"
-          class="inline-flex items-center justify-center gap-1.5 w-full px-4 py-2.5 rounded-lg bg-terracotta-500 text-white text-sm font-medium hover:bg-terracotta-600 transition-colors"
+          class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-terracotta-500 text-white text-sm font-medium hover:bg-terracotta-600 transition-colors"
         >
           <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
             <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />

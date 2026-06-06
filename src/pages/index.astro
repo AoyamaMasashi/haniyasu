@@ -3,6 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import ServiceCard from '@/components/ServiceCard.astro';
 import BlogCard from '@/components/BlogCard.astro';
 import PodcastCard from '@/components/PodcastCard.astro';
+import NewsletterSignup from '@/components/NewsletterSignup.astro';
 import { getServiceList, getPodcastList } from '@/lib/microcms';
 import { getNoteArticles } from '@/lib/note';
 
@@ -81,7 +82,7 @@ const episodes = podcastData.contents;
           </div>
           <h2 class="font-serif text-2xl md:text-3xl font-bold text-soil-800">サービス</h2>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="flex flex-col gap-4 max-w-3xl mx-auto">
           {services.map((service) => <ServiceCard service={service} />)}
         </div>
         <div class="text-center mt-8">
@@ -140,6 +141,9 @@ const episodes = podcastData.contents;
       </div>
     </section>
   )}
+
+  <!-- ニュースレター購読 -->
+  <NewsletterSignup />
 
   <!-- CTA セクション -->
   <section class="py-20 bg-soil-800 text-center">
