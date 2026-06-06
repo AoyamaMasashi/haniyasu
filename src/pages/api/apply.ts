@@ -4,7 +4,7 @@ import type { APIContext } from 'astro';
 import { Resend } from 'resend';
 
 const SERVICE_LABELS: Record<string, string> = {
-  kukurubitto: 'AI研修「ククルビット」',
+  cucurbit: 'AI研修「ククルビット」',
   'service-planning': 'サービス・商品企画',
   other: 'その他',
 };

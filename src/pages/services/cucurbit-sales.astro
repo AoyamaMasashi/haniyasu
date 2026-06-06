@@ -1,0 +1,366 @@
+---
+import LPLayout from '@/layouts/LPLayout.astro';
+---
+
+<LPLayout
+  title="営業生産性をAIで改善する | ククルビット | ハニヤス合同会社"
+  description="提案書作成・顧客分析・商談準備など、営業プロセス全体をAIで仕組み化。1人あたり月20時間削減を実現する実践型AI活用研修プログラム。"
+>
+  <!-- ── 最小ヘッダー ─────────────────────────── -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-soil-100">
+    <div class="max-w-5xl mx-auto px-5 h-14 flex items-center justify-between">
+      <a href="/" class="font-serif font-semibold text-soil-700 text-base">
+        ハニヤス合同会社
+      </a>
+      <a
+        href="#form"
+        class="px-4 py-1.5 rounded-full bg-terracotta-500 text-white text-sm font-medium hover:bg-terracotta-600 transition-colors"
+      >
+        無料相談・申込み
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <!-- ── ヒーロー ──────────────────────────── -->
+    <section class="bg-gradient-to-br from-[#0e3a4a] to-[#1a5c72] text-white py-16 md:py-24">
+      <div class="max-w-4xl mx-auto px-5 text-center">
+        <span class="inline-block px-3 py-1 rounded-full bg-white/20 text-xs font-medium tracking-widest uppercase mb-6">
+          経営者・決裁者向け
+        </span>
+        <h1 class="font-serif text-3xl md:text-5xl font-bold leading-snug mb-5">
+          営業生産性を<br class="md:hidden" /><span class="text-[#f0c060]">"仕組み"</span>で改善する<br />
+          AI活用プログラム
+        </h1>
+        <p class="text-lg text-white/80 mb-8">
+          営業のやり方を変えると、成果は再現できる。
+        </p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+          <a
+            href="#form"
+            class="px-8 py-4 rounded-lg bg-terracotta-500 text-white font-bold text-lg hover:bg-terracotta-600 transition-colors shadow-lg"
+          >
+            無料相談・申込みはこちら
+          </a>
+          <a
+            href="#program"
+            class="px-8 py-4 rounded-lg border-2 border-white/50 text-white font-medium hover:bg-white/10 transition-colors"
+          >
+            プログラムを見る
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 課題提起 ──────────────────────────── -->
+    <section class="py-14 bg-soil-50">
+      <div class="max-w-4xl mx-auto px-5">
+        <p class="text-center text-sm font-medium tracking-widest text-soil-500 uppercase mb-2">採用・定着・増員で解決できる時代ではない。</p>
+        <h2 class="font-serif text-2xl md:text-3xl font-bold text-center text-soil-800 mb-10">
+          営業組織の前提が変わっている
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
+          {[
+            { icon: '👤', title: '人材採用が難しい', desc: '採用コストは上がり続け、即戦力の確保が困難に' },
+            { icon: '📉', title: '教育しても定着しない', desc: 'せっかく育てた人材が辞め、ノウハウがリセットされる' },
+            { icon: '📊', title: '人を増やしても成果が比例しない', desc: '組織が大きくなっても売上が伸びない' },
+          ].map(({ icon, title, desc }) => (
+            <div class="bg-white rounded-xl p-6 border border-soil-200 text-center">
+              <div class="text-3xl mb-3">{icon}</div>
+              <h3 class="font-bold text-soil-800 mb-2">{title}</h3>
+              <p class="text-sm text-soil-500 leading-relaxed">{desc}</p>
+            </div>
+          ))}
+        </div>
+        <div class="bg-soil-800 text-white rounded-xl px-6 py-4 text-center">
+          <p class="font-bold text-lg">人に依存する営業が、厳しくなっていく。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 解決策 ──────────────────────────── -->
+    <section class="py-14 bg-white">
+      <div class="max-w-4xl mx-auto px-5">
+        <p class="text-center text-sm font-medium tracking-widest text-[#1a5c72] uppercase mb-2">属人化を、再現可能な型へ。</p>
+        <h2 class="font-serif text-2xl md:text-3xl font-bold text-center text-soil-800 mb-10">
+          営業を<span class="text-[#1a5c72]">"仕組み化"</span>する
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {[
+            { num: '01', title: '業務を分解する', sub: '何をするか明確化', color: 'bg-soil-50' },
+            { num: '02', title: 'AIで標準化する', sub: '誰でも同品質へ', color: 'bg-[#e8f4f7]' },
+            { num: '03', title: 'ナレッジを蓄積する', sub: '次回に活きる資産へ', color: 'bg-[#1a5c72]' },
+          ].map(({ num, title, sub, color }, i) => (
+            <div class={`${color} rounded-xl p-6 relative`}>
+              <div class={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm mb-4 ${i === 2 ? 'bg-white/20 text-white' : 'bg-[#1a5c72] text-white'}`}>
+                {num}
+              </div>
+              <h3 class={`font-bold text-lg mb-1 ${i === 2 ? 'text-white' : 'text-soil-800'}`}>{title}</h3>
+              <p class={`text-sm ${i === 2 ? 'text-white/80' : 'text-soil-500'}`}>{sub}</p>
+              {i < 2 && (
+                <div class="hidden md:block absolute -right-2.5 top-1/2 -translate-y-1/2 text-soil-300 text-xl z-10">→</div>
+              )}
+            </div>
+          ))}
+        </div>
+        <div class="mt-6 bg-[#e8f4f7] rounded-xl px-6 py-4 text-center border border-[#b0d8e4]">
+          <p class="font-bold text-[#1a5c72]">"売れる"仕組みを作る。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── インパクト数値 ──────────────────────────── -->
+    <section class="py-14 bg-soil-50">
+      <div class="max-w-4xl mx-auto px-5">
+        <p class="text-center text-sm font-medium tracking-widest text-soil-500 uppercase mb-2">削減時間を経営インパクトで見る</p>
+        <h2 class="font-serif text-2xl md:text-3xl font-bold text-center text-soil-800 mb-10">
+          どれくらいのインパクトか
+        </h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {[
+            { label: '1人あたり', num: '月20時間', unit: '削減', highlight: true },
+            { label: '5人チームで', num: '月100時間', unit: '', highlight: false },
+            { label: 'チーム全体で', num: '年間1,200時間', unit: '', highlight: false },
+            { label: '人件費換算で', num: '数百万円', unit: '規模の余力', highlight: false },
+          ].map(({ label, num, unit, highlight }) => (
+            <div class={`rounded-xl p-5 text-center ${highlight ? 'bg-[#1a5c72] text-white' : 'bg-white border border-soil-200'}`}>
+              <p class={`text-xs mb-2 ${highlight ? 'text-white/70' : 'text-soil-500'}`}>{label}</p>
+              <p class={`font-bold text-xl leading-tight ${highlight ? 'text-[#f0c060]' : 'text-soil-800'}`}>{num}</p>
+              {unit && <p class={`text-xs mt-1 ${highlight ? 'text-white/80' : 'text-soil-500'}`}>{unit}</p>}
+            </div>
+          ))}
+        </div>
+        <p class="text-center text-sm text-soil-500 mt-4">創出した時間を、顧客対応・提案準備へ再配分。</p>
+      </div>
+    </section>
+
+    <!-- ── プログラム内容 ──────────────────────────── -->
+    <section id="program" class="py-14 bg-white">
+      <div class="max-w-4xl mx-auto px-5">
+        <p class="text-center text-sm font-medium tracking-widest text-[#1a5c72] uppercase mb-2">最初は効果の大きい領域から</p>
+        <h2 class="font-serif text-2xl md:text-3xl font-bold text-center text-soil-800 mb-10">
+          営業AI活用シリーズ
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- コアコース -->
+          <div class="bg-[#1a5c72] text-white rounded-xl p-6">
+            <div class="flex items-center gap-2 mb-4">
+              <span class="px-2 py-0.5 rounded text-xs font-bold bg-[#f0c060] text-soil-800">CORE</span>
+              <h3 class="font-bold text-lg">提案書作成編</h3>
+            </div>
+            <p class="text-white/70 text-sm mb-4">作業短縮から、受注力の再現へ。全3回のプログラム。</p>
+            <div class="space-y-2">
+              {[
+                { level: '初級', title: '資料を最短で作る', color: 'bg-white/10' },
+                { level: '中級', title: '受注につながる提案', color: 'bg-white/20' },
+                { level: '上級', title: '提案を仕組み化', color: 'bg-white/30' },
+              ].map(({ level, title, color }) => (
+                <div class={`${color} rounded-lg px-4 py-2.5 flex items-center gap-3`}>
+                  <span class="text-[#f0c060] text-xs font-bold w-8">{level}</span>
+                  <span class="text-sm font-medium">{title}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- 展開コース -->
+          <div class="space-y-3">
+            {[
+              { title: '顧客分析編', desc: 'ターゲットの解像度を上げ、アプローチを最適化' },
+              { title: 'コミュニケーション編', desc: '商談時の応酬話法やメール文面の自動生成' },
+              { title: '見積作成編', desc: '要件定義からの概算見積もり・工数算出を支援' },
+            ].map(({ title, desc }) => (
+              <div class="bg-soil-50 border border-soil-200 rounded-xl p-5">
+                <h3 class="font-bold text-soil-800 mb-1">{title}</h3>
+                <p class="text-sm text-soil-500">{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+        <p class="text-center text-sm text-[#1a5c72] font-medium mt-6">
+          営業の各プロセスでAIを活用して生産性を上げる。
+        </p>
+      </div>
+    </section>
+
+    <!-- ── こんな企業に ──────────────────────────── -->
+    <section class="py-14 bg-soil-50">
+      <div class="max-w-3xl mx-auto px-5">
+        <h2 class="font-serif text-2xl font-bold text-center text-soil-800 mb-8">
+          こんな課題を持つ企業に選ばれています
+        </h2>
+        <div class="space-y-3">
+          {[
+            'AI研修を受けても、現場で使いこなせていない',
+            '優秀な営業が辞めると売上が落ちる。ノウハウが属人化している',
+            '営業が忙しいのに、成果が上がらない・再現できない',
+            '部門によってAI活用のレベルがバラバラ',
+            '社員の業務時間を削減し、顧客対応に集中させたい',
+          ].map((text) => (
+            <div class="flex items-start gap-3 bg-white rounded-lg px-5 py-3.5 border border-soil-100">
+              <span class="text-terracotta-500 font-bold mt-0.5">✓</span>
+              <p class="text-sm text-soil-700">{text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 申込みフォーム ──────────────────────────── -->
+    <section id="form" class="py-16 bg-[#0e3a4a]">
+      <div class="max-w-2xl mx-auto px-5">
+        <h2 class="font-serif text-2xl md:text-3xl font-bold text-center text-white mb-2">
+          無料相談・お申込み
+        </h2>
+        <p class="text-center text-white/70 text-sm mb-8">
+          内容・料金・日程など、まずはお気軽にご相談ください。<br />
+          3営業日以内にご連絡いたします。
+        </p>
+
+        <div class="bg-white rounded-2xl p-8">
+          <div id="lp-form-wrap">
+            <div id="lp-form-success" class="hidden text-center py-10">
+              <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <h3 class="font-serif text-xl font-bold text-soil-800 mb-2">お申込みを受け付けました</h3>
+              <p class="text-soil-600 text-sm leading-relaxed">
+                ご入力のメールアドレスに確認メールをお送りしました。<br />
+                担当者より3営業日以内にご連絡いたします。
+              </p>
+            </div>
+
+            <form id="lp-form" novalidate class="space-y-5">
+              <!-- ハニーポット -->
+              <div class="absolute -left-[9999px]" aria-hidden="true">
+                <input type="text" name="phone_number_confirm" tabindex="-1" autocomplete="off" />
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-soil-700 mb-1">会社名 <span class="text-terracotta-500">*</span></label>
+                  <input type="text" name="company" required placeholder="株式会社〇〇"
+                    class="w-full px-4 py-2.5 rounded-lg border border-soil-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#1a5c72]" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-soil-700 mb-1">お名前 <span class="text-terracotta-500">*</span></label>
+                  <input type="text" name="name" required placeholder="山田 太郎"
+                    class="w-full px-4 py-2.5 rounded-lg border border-soil-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#1a5c72]" />
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-soil-700 mb-1">メールアドレス <span class="text-terracotta-500">*</span></label>
+                <input type="email" name="email" required placeholder="taro@example.com"
+                  class="w-full px-4 py-2.5 rounded-lg border border-soil-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#1a5c72]" />
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-soil-700 mb-1">電話番号 <span class="text-xs text-soil-400">任意</span></label>
+                  <input type="tel" name="tel" placeholder="03-0000-0000"
+                    class="w-full px-4 py-2.5 rounded-lg border border-soil-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#1a5c72]" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-soil-700 mb-1">想定参加人数 <span class="text-xs text-soil-400">任意</span></label>
+                  <input type="text" name="participants" placeholder="例: 5〜10名"
+                    class="w-full px-4 py-2.5 rounded-lg border border-soil-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#1a5c72]" />
+                </div>
+              </div>
+
+              <!-- サービスは cucurbit で固定（hidden） -->
+              <input type="hidden" name="service" value="cucurbit" />
+
+              <div>
+                <label class="block text-sm font-medium text-soil-700 mb-1">ご質問・ご要望 <span class="text-xs text-soil-400">任意</span></label>
+                <textarea name="message" rows="4" placeholder="ご要望や現在の課題などお気軽にどうぞ。"
+                  class="w-full px-4 py-2.5 rounded-lg border border-soil-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#1a5c72] resize-y"></textarea>
+              </div>
+
+              <div id="lp-error" class="hidden bg-red-50 border border-red-200 rounded-lg px-4 py-3 text-sm text-red-700"></div>
+
+              <button type="submit" id="lp-submit"
+                class="w-full py-4 rounded-lg bg-terracotta-500 text-white font-bold text-base hover:bg-terracotta-600 transition-colors disabled:opacity-60">
+                <span id="lp-label">無料相談・申込みを送信する</span>
+                <span id="lp-loading" class="hidden">送信中…</span>
+              </button>
+
+              <p class="text-xs text-soil-400 text-center">送信された情報はお問い合わせへの対応のみに使用します。</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ミニフッター ──────────────────────────── -->
+    <footer class="py-6 bg-soil-900 text-center">
+      <p class="text-xs text-soil-500">
+        <a href="/" class="hover:text-soil-300 transition-colors">ハニヤス合同会社</a>
+        　|
+        <a href="/services" class="hover:text-soil-300 transition-colors">サービス一覧</a>
+        　|
+        <a href="/contact" class="hover:text-soil-300 transition-colors">お問い合わせ</a>
+      </p>
+      <p class="text-xs text-soil-600 mt-2">&copy; 2026 ハニヤス合同会社</p>
+    </footer>
+  </main>
+
+  <script>
+    const form = document.getElementById('lp-form') as HTMLFormElement | null;
+    const successEl = document.getElementById('lp-form-success');
+    const errorEl = document.getElementById('lp-error');
+    const submitBtn = document.getElementById('lp-submit') as HTMLButtonElement | null;
+    const labelEl = document.getElementById('lp-label');
+    const loadingEl = document.getElementById('lp-loading');
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorEl?.classList.add('hidden');
+
+      const company = (form.querySelector('[name="company"]') as HTMLInputElement)?.value.trim();
+      const name = (form.querySelector('[name="name"]') as HTMLInputElement)?.value.trim();
+      const email = (form.querySelector('[name="email"]') as HTMLInputElement)?.value.trim();
+
+      if (!company || !name || !email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        if (errorEl) {
+          errorEl.textContent = '会社名・お名前・メールアドレスは必須です。';
+          errorEl.classList.remove('hidden');
+        }
+        return;
+      }
+
+      submitBtn && (submitBtn.disabled = true);
+      labelEl?.classList.add('hidden');
+      loadingEl?.classList.remove('hidden');
+
+      try {
+        const res = await fetch('/api/apply', { method: 'POST', body: new FormData(form) });
+        const json = await res.json() as { ok: boolean; error?: string };
+
+        if (json.ok) {
+          form.classList.add('hidden');
+          successEl?.classList.remove('hidden');
+        } else {
+          if (errorEl) {
+            errorEl.textContent = json.error ?? '送信中にエラーが発生しました。';
+            errorEl.classList.remove('hidden');
+          }
+          submitBtn && (submitBtn.disabled = false);
+          labelEl?.classList.remove('hidden');
+          loadingEl?.classList.add('hidden');
+        }
+      } catch {
+        if (errorEl) {
+          errorEl.textContent = '通信エラーが発生しました。再度お試しください。';
+          errorEl.classList.remove('hidden');
+        }
+        submitBtn && (submitBtn.disabled = false);
+        labelEl?.classList.remove('hidden');
+        loadingEl?.classList.add('hidden');
+      }
+    });
+  </script>
+</LPLayout>
