@@ -1,10 +1,11 @@
 import { createClient } from 'microcms-js-sdk';
-import type { PodcastEpisode, Service, Member, About } from './types';
+import type { PodcastEpisode, Service, Member, About, News } from './types';
 import {
   mockServices,
   mockPodcastEpisodes,
   mockMembers,
   mockAbout,
+  mockNews,
 } from './mockData';
 
 const serviceDomain = import.meta.env.MICROCMS_SERVICE_DOMAIN;
@@ -98,6 +99,42 @@ export async function getMemberList() {
     });
   } catch {
     return { contents: mockMembers, totalCount: mockMembers.length, offset: 0, limit: 100 };
+  }
+}
+
+// ── お知らせ ──────────────────────────────────────────────
+
+export async function getNewsList(limit = PER_PAGE, offset = 0) {
+  if (!client) {
+    const slice = mockNews.slice(offset, offset + limit);
+    return { contents: slice, totalCount: mockNews.length, offset, limit };
+  }
+  try {
+    return await client.getList<News>({
+      endpoint: 'news',
+      queries: { limit, offset, orders: '-publishedAt' },
+    });
+  } catch {
+    const slice = mockNews.slice(offset, offset + limit);
+    return { contents: slice, totalCount: mockNews.length, offset, limit };
+  }
+}
+
+export async function getNewsItem(contentId: string) {
+  if (!client) return mockNews.find((n) => n.id === contentId) ?? null;
+  try {
+    return await client.getListDetail<News>({ endpoint: 'news', contentId });
+  } catch {
+    return null;
+  }
+}
+
+export async function getAllNewsIds() {
+  if (!client) return mockNews.map((n) => n.id);
+  try {
+    return await client.getAllContentIds({ endpoint: 'news' });
+  } catch {
+    return mockNews.map((n) => n.id);
   }
 }
 

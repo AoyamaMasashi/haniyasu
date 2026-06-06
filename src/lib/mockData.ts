@@ -1,4 +1,4 @@
-import type { PodcastEpisode, Service, Member, About } from './types';
+import type { PodcastEpisode, Service, Member, About, News } from './types';
 
 export const mockServices: Service[] = [
   {
@@ -70,6 +70,19 @@ export const mockMembers: Member[] = [
     role: 'コンテンツ・ポッドキャスト担当',
     profile: '<p>ポッドキャストの企画・制作・配信を担当。各種コンテンツの発信も行う。</p>',
     order: 2,
+  },
+];
+
+export const mockNews: News[] = [
+  {
+    id: 'news-1',
+    createdAt: '2025-06-01T00:00:00.000Z',
+    updatedAt: '2025-06-01T00:00:00.000Z',
+    publishedAt: '2025-06-01T00:00:00.000Z',
+    revisedAt: '2025-06-01T00:00:00.000Z',
+    title: 'ウェブサイトをリニューアルしました',
+    category: 'お知らせ',
+    body: '<p>ハニヤス合同会社の公式ウェブサイトをリニューアルしました。</p>',
   },
 ];
 

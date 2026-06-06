@@ -37,6 +37,14 @@ export interface About extends MicroCMSObjectContent {
   image?: MicroCMSImage;
 }
 
+export type NewsCategory = 'お知らせ' | 'ブログ更新' | 'ポッドキャスト' | '研修情報';
+
+export interface News extends MicroCMSListContent {
+  title: string;
+  body?: string;
+  category?: NewsCategory;
+}
+
 export interface SeoProps {
   title: string;
   description?: string;

@@ -1,0 +1,74 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getNewsList } from '@/lib/microcms';
+
+const { contents: items } = await getNewsList(50);
+
+const CATEGORY_COLOR: Record<string, string> = {
+  'お知らせ':     'bg-soil-100 text-soil-600',
+  'ブログ更新':   'bg-green-100 text-green-700',
+  'ポッドキャスト': 'bg-blue-100 text-blue-700',
+  '研修情報':     'bg-terracotta-100 text-terracotta-700',
+};
+
+function fmt(iso: string) {
+  return new Date(iso).toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+---
+
+<BaseLayout
+  title="お知らせ | ハニヤス合同会社"
+  description="ハニヤス合同会社からのお知らせ・最新情報をご覧いただけます。"
+>
+  <section class="py-10 bg-gradient-to-b from-cream-100 to-cream-50">
+    <div class="container-content text-center">
+      <p class="text-xs font-medium tracking-[0.3em] uppercase text-soil-400 mb-3">News</p>
+      <h1 class="font-serif text-3xl md:text-4xl font-bold text-soil-800">お知らせ</h1>
+    </div>
+  </section>
+
+  <section class="section-padding bg-cream-50">
+    <div class="container-content max-w-2xl mx-auto">
+      {items.length > 0 ? (
+        <ul class="divide-y divide-soil-100">
+          {items.map((item) => (
+            <li>
+              {item.body ? (
+                <a href={`/news/${item.id}`} class="group flex items-start gap-4 py-5 hover:bg-soil-50 -mx-4 px-4 rounded-lg transition-colors">
+                  <time class="shrink-0 text-sm text-soil-400 w-28 pt-0.5">{fmt(item.publishedAt)}</time>
+                  <div class="flex-1 min-w-0">
+                    {item.category && (
+                      <span class:list={['inline-block text-xs font-medium px-2 py-0.5 rounded mb-1.5', CATEGORY_COLOR[item.category] ?? 'bg-soil-100 text-soil-600']}>
+                        {item.category}
+                      </span>
+                    )}
+                    <p class="text-sm font-medium text-soil-800 group-hover:text-terracotta-600 transition-colors leading-snug">{item.title}</p>
+                  </div>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-soil-300 group-hover:text-terracotta-400 shrink-0 mt-0.5 transition-colors" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                  </svg>
+                </a>
+              ) : (
+                <div class="flex items-start gap-4 py-5">
+                  <time class="shrink-0 text-sm text-soil-400 w-28 pt-0.5">{fmt(item.publishedAt)}</time>
+                  <div class="flex-1 min-w-0">
+                    {item.category && (
+                      <span class:list={['inline-block text-xs font-medium px-2 py-0.5 rounded mb-1.5', CATEGORY_COLOR[item.category] ?? 'bg-soil-100 text-soil-600']}>
+                        {item.category}
+                      </span>
+                    )}
+                    <p class="text-sm text-soil-800 leading-snug">{item.title}</p>
+                  </div>
+                </div>
+              )}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div class="text-center py-20 text-soil-400">
+          <p class="font-serif text-lg">お知らせはまだありません。</p>
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>

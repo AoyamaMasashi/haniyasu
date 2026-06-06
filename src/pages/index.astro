@@ -3,18 +3,23 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import ServiceCard from '@/components/ServiceCard.astro';
 import BlogCard from '@/components/BlogCard.astro';
 import PodcastCard from '@/components/PodcastCard.astro';
-import NewsletterSignup from '@/components/NewsletterSignup.astro';
-import { getServiceList, getPodcastList } from '@/lib/microcms';
+import { getServiceList, getPodcastList, getNewsList } from '@/lib/microcms';
 import { getNoteArticles } from '@/lib/note';
 
-const [servicesData, blogPosts, podcastData] = await Promise.all([
+const [servicesData, blogPosts, podcastData, newsData] = await Promise.all([
   getServiceList(),
   getNoteArticles(3),
   getPodcastList(3, 0),
+  getNewsList(5),
 ]);
 
 const services = servicesData.contents;
 const episodes = podcastData.contents;
+const newsItems = newsData.contents;
+
+function fmtDate(iso: string) {
+  return new Date(iso).toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' });
+}
 ---
 
 <BaseLayout title="ハニヤス合同会社 | 人創りで豊かな未来を">
@@ -69,6 +74,42 @@ const episodes = podcastData.contents;
       </a>
     </div>
   </section>
+
+  <!-- お知らせ -->
+  {newsItems.length > 0 && (
+    <section class="py-8 bg-cream-50 border-b border-soil-100">
+      <div class="container-content max-w-3xl mx-auto">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-3">
+            <div class="w-1 h-5 rounded-full bg-terracotta-400"></div>
+            <p class="text-sm font-medium text-soil-700">お知らせ</p>
+          </div>
+          <a href="/news" class="text-xs text-terracotta-500 hover:text-terracotta-600 transition-colors">
+            すべて見る →
+          </a>
+        </div>
+        <ul class="divide-y divide-soil-100">
+          {newsItems.map((item) => (
+            <li>
+              {item.body ? (
+                <a href={`/news/${item.id}`} class="group flex items-baseline gap-4 py-3 hover:text-terracotta-600 transition-colors">
+                  <time class="shrink-0 text-xs text-soil-400 w-24">{fmtDate(item.publishedAt)}</time>
+                  {item.category && <span class="shrink-0 text-xs px-1.5 py-0.5 rounded bg-soil-100 text-soil-500">{item.category}</span>}
+                  <span class="text-sm text-soil-800 group-hover:text-terracotta-600 transition-colors">{item.title}</span>
+                </a>
+              ) : (
+                <div class="flex items-baseline gap-4 py-3">
+                  <time class="shrink-0 text-xs text-soil-400 w-24">{fmtDate(item.publishedAt)}</time>
+                  {item.category && <span class="shrink-0 text-xs px-1.5 py-0.5 rounded bg-soil-100 text-soil-500">{item.category}</span>}
+                  <span class="text-sm text-soil-800">{item.title}</span>
+                </div>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
 
   <!-- サービス一覧 -->
   {services.length > 0 && (
@@ -141,9 +182,6 @@ const episodes = podcastData.contents;
       </div>
     </section>
   )}
-
-  <!-- ニュースレター購読 -->
-  <NewsletterSignup />
 
   <!-- CTA セクション -->
   <section class="py-20 bg-soil-800 text-center">
