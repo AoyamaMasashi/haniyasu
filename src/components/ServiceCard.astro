@@ -37,15 +37,29 @@ const { service } = Astro.props;
       </div>
     </div>
     <p class="text-sm text-soil-600 leading-relaxed mb-4 flex-1">{service.lead}</p>
-    <a
-      href={`/services/${service.id}`}
-      class="inline-flex items-center gap-1 text-sm font-medium text-terracotta-500 hover:text-terracotta-600 transition-colors mt-auto"
-      aria-label={`${service.serviceName} の詳細を見る`}
-    >
-      詳細を見る
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-      </svg>
-    </a>
+    <div class="mt-auto flex flex-col gap-2">
+      {service.id === 'cucurbit' && (
+        <a
+          href="/services/cucurbit-sales"
+          class="inline-flex items-center justify-center gap-1.5 w-full px-4 py-2.5 rounded-lg bg-terracotta-500 text-white text-sm font-medium hover:bg-terracotta-600 transition-colors"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+            <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd" />
+          </svg>
+          研修プログラムを見る
+        </a>
+      )}
+      <a
+        href={`/services/${service.id}`}
+        class="inline-flex items-center gap-1 text-sm font-medium text-terracotta-500 hover:text-terracotta-600 transition-colors"
+        aria-label={`${service.serviceName} の詳細を見る`}
+      >
+        詳細を見る
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+        </svg>
+      </a>
+    </div>
   </div>
 </article>
