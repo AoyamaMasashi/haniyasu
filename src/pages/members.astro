@@ -21,7 +21,7 @@ const { contents: members } = await getMemberList();
   <section class="section-padding bg-cream-50">
     <div class="container-content">
       {members.length > 0 ? (
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-4xl mx-auto">
+        <div class="flex flex-col gap-6 max-w-3xl mx-auto">
           {members.map((member) => <MemberCard member={member} />)}
         </div>
       ) : (
