@@ -3,23 +3,19 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import ServiceCard from '@/components/ServiceCard.astro';
 import BlogCard from '@/components/BlogCard.astro';
 import PodcastCard from '@/components/PodcastCard.astro';
-import { getServiceList, getPodcastList, getNewsList } from '@/lib/microcms';
+import { getServiceList, getPodcastList } from '@/lib/microcms';
 import { getNoteArticles } from '@/lib/note';
+import { getNewsFeed, CATEGORY_COLOR, fmtDate } from '@/lib/newsFeed';
 
-const [servicesData, blogPosts, podcastData, newsData] = await Promise.all([
+const [servicesData, blogPosts, podcastData, feedItems] = await Promise.all([
   getServiceList(),
   getNoteArticles(3),
   getPodcastList(3, 0),
-  getNewsList(5),
+  getNewsFeed(5),
 ]);
 
 const services = servicesData.contents;
 const episodes = podcastData.contents;
-const newsItems = newsData.contents;
-
-function fmtDate(iso: string) {
-  return new Date(iso).toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' });
-}
 ---
 
 <BaseLayout title="ハニヤス合同会社 | 人創りで豊かな未来を">
@@ -75,37 +71,47 @@ function fmtDate(iso: string) {
     </div>
   </section>
 
-  <!-- お知らせ -->
-  {newsItems.length > 0 && (
+  <!-- お知らせ・最新情報 -->
+  {feedItems.length > 0 && (
     <section class="py-8 bg-cream-50 border-b border-soil-100">
       <div class="container-content max-w-3xl mx-auto">
         <div class="flex items-center justify-between mb-4">
           <div class="flex items-center gap-3">
             <div class="w-1 h-5 rounded-full bg-terracotta-400"></div>
-            <p class="text-sm font-medium text-soil-700">お知らせ</p>
+            <p class="text-sm font-medium text-soil-700">最新情報</p>
           </div>
           <a href="/news" class="text-xs text-terracotta-500 hover:text-terracotta-600 transition-colors">
             すべて見る →
           </a>
         </div>
         <ul class="divide-y divide-soil-100">
-          {newsItems.map((item) => (
-            <li>
-              {item.body ? (
-                <a href={`/news/${item.id}`} class="group flex items-baseline gap-4 py-3 hover:text-terracotta-600 transition-colors">
-                  <time class="shrink-0 text-xs text-soil-400 w-24">{fmtDate(item.publishedAt)}</time>
-                  {item.category && <span class="shrink-0 text-xs px-1.5 py-0.5 rounded bg-soil-100 text-soil-500">{item.category}</span>}
-                  <span class="text-sm text-soil-800 group-hover:text-terracotta-600 transition-colors">{item.title}</span>
-                </a>
-              ) : (
-                <div class="flex items-baseline gap-4 py-3">
-                  <time class="shrink-0 text-xs text-soil-400 w-24">{fmtDate(item.publishedAt)}</time>
-                  {item.category && <span class="shrink-0 text-xs px-1.5 py-0.5 rounded bg-soil-100 text-soil-500">{item.category}</span>}
-                  <span class="text-sm text-soil-800">{item.title}</span>
-                </div>
-              )}
-            </li>
-          ))}
+          {feedItems.map((item) => {
+            const colorClass = CATEGORY_COLOR[item.category] ?? 'bg-soil-100 text-soil-600';
+            const linkHref = item.href ?? (item.newsId ? `/news/${item.newsId}` : undefined);
+            const isExternal = item.href?.startsWith('http');
+            return (
+              <li>
+                {linkHref ? (
+                  <a
+                    href={linkHref}
+                    target={isExternal ? '_blank' : undefined}
+                    rel={isExternal ? 'noopener noreferrer' : undefined}
+                    class="group flex items-center gap-3 py-3 hover:bg-soil-50 -mx-4 px-4 rounded-lg transition-colors"
+                  >
+                    <time class="shrink-0 text-xs text-soil-400 w-24">{fmtDate(item.date)}</time>
+                    <span class:list={['shrink-0 text-xs font-medium px-1.5 py-0.5 rounded', colorClass]}>{item.category}</span>
+                    <span class="flex-1 text-sm text-soil-800 group-hover:text-terracotta-600 transition-colors truncate">{item.title}</span>
+                  </a>
+                ) : (
+                  <div class="flex items-center gap-3 py-3">
+                    <time class="shrink-0 text-xs text-soil-400 w-24">{fmtDate(item.date)}</time>
+                    <span class:list={['shrink-0 text-xs font-medium px-1.5 py-0.5 rounded', colorClass]}>{item.category}</span>
+                    <span class="flex-1 text-sm text-soil-800 truncate">{item.title}</span>
+                  </div>
+                )}
+              </li>
+            );
+          })}
         </ul>
       </div>
     </section>
