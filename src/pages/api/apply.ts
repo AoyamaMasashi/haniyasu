@@ -187,8 +187,7 @@ export async function POST(ctx: APIContext): Promise<Response> {
   const resend = new Resend(resendKey);
   const notifyTo = getEnv('CONTACT_NOTIFY_TO') || 'aoyama.masashi@haniyasu.com';
 
-  // 差出人アドレス: ドメイン認証前は Resend のテスト用、本番化後は info@haniyasu.com に変更
-  const fromAddress = 'ハニヤス合同会社 <onboarding@resend.dev>';
+  const fromAddress = 'ハニヤス合同会社 <info@haniyasu.com>';
 
   const serviceLabel = (SERVICE_LABELS[data.service] ?? data.service) || '';
 
